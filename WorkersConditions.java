@@ -4,28 +4,41 @@ import java.util.Scanner;
 
         public static void main(String[] args) {
             Scanner scanner = new Scanner(System.in);
-            int age, experiance;
-            boolean highSchoolDiploma;
-            String msg = "The applicant was not hired.";
-            System.out.print("Pease enter your age: ");
-            age = scanner.nextInt();
-            System.out.print("Did you have high school diploma? ");
-            highSchoolDiploma = scanner.nextBoolean();
-            System.out.print("How many years of experience do you have? ");
-            experiance = scanner.nextInt();
 
-            if (age > 20) {
-                if (highSchoolDiploma) {
-                    if (experiance > 3) {
-                        System.out.println("The applicant was hired.");
-                    } else {
-                        System.out.println(msg + "you need more experience");
-                    }
-                } else {
-                    System.out.println(msg + "you need high school diploma");
-                }
+            // קליטת נתוני המבקש
+            System.out.print("הכנס גיל: ");
+            int age = scanner.nextInt();
+
+            System.out.print("הכנס מספר שנות ניסיון: ");
+            int yearsOfExperience = scanner.nextInt();
+
+            System.out.print("האם יש לך תעודת בגרות? (כן/לא): ");
+            String bagrutInput = scanner.nextLine();
+
+            // המרה לערך בוליאני
+            boolean hasBagrut = bagrutInput.equalsIgnoreCase("כן");
+
+            // בדיקה אם המבקש עומד בדרישות
+            boolean meetsAgeReq = age > 20;
+            boolean meetsBagrutReq = hasBagrut;
+            boolean meetsExperienceReq = yearsOfExperience >= 3;
+
+            if (meetsAgeReq && meetsBagrutReq && meetsExperienceReq) {
+                // המבקש התקבל
+                System.out.println("המבקש התקבל לעבודה.");
             } else {
-                System.out.println(msg + "you need to be older than 20");
+                // המבקש לא התקבל - נפרט את הסיבות
+                System.out.println("המבקש לא התקבל לעבודה בגלל הסיבות הבאות:");
+                if (!meetsAgeReq) {
+                    System.out.println("- המבקש אינו מעל גיל 20.");
+                }
+                if (!meetsBagrutReq) {
+                    System.out.println("- למבקש אין תעודת בגרות.");
+                }
+                if (!meetsExperienceReq) {
+                    System.out.println("- למבקש פחות מ-3 שנות ניסיון.");
+                }
             }
+            scanner.close();
         }
     }
