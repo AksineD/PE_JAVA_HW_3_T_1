@@ -9,7 +9,6 @@ import java.util.Scanner;
             boolean hasBagrut = getYesNoAnswer(scanner, "האם יש לך תעודת בגרות? (כן/לא): ");
 
             printEligibility(age, yearsOfExperience, hasBagrut);
-
             scanner.close();
         }
 
