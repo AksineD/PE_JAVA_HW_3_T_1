@@ -8,7 +8,7 @@ public class WorkersConditions {
         int yearsOfExperience = getValidInteger(scanner, "Enter years of experience (positive integer): ", 0, 120);
         boolean hasDiploma = getYesNoAnswer(scanner, "Do you have a high school diploma? (yes/no): ");
 
-        printEligibility(age, yearsOfExperience, hasDiploma);
+        processAndDisplayResults(age, yearsOfExperience, hasDiploma);
         scanner.close();
     }
 
@@ -75,7 +75,7 @@ public class WorkersConditions {
      * @param yearsOfExperience Applicant's years of experience
      * @param hasDiploma        Whether the applicant has a high school diploma
      */
-    private static void printEligibility(int age, int yearsOfExperience, boolean hasDiploma) {
+    private static void processAndDisplayResults(int age, int yearsOfExperience, boolean hasDiploma) {
         boolean meetsAgeReq = age > 20;
         boolean meetsDiplomaReq = hasDiploma;
         boolean meetsExperienceReq = yearsOfExperience >= 3;
