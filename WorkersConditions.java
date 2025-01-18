@@ -1,100 +1,100 @@
 import java.util.Scanner;
 
-    public class WorkersConditions {
-        public static void main(String[] args) {
-            Scanner scanner = new Scanner(System.in);
+public class WorkersConditions {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
-            int age = getValidInteger(scanner, "הכנס גיל (מספר שלם חיובי): ", 1, 120);
-            int yearsOfExperience = getValidInteger(scanner, "הכנס מספר שנות ניסיון (מספר שלם חיובי): ", 0, 120);
-            boolean hasBagrut = getYesNoAnswer(scanner, "האם יש לך תעודת בגרות? (כן/לא): ");
+        int age = getValidInteger(scanner, "Enter age (positive integer): ", 1, 120);
+        int yearsOfExperience = getValidInteger(scanner, "Enter years of experience (positive integer): ", 0, 120);
+        boolean hasDiploma = getYesNoAnswer(scanner, "Do you have a high school diploma? (yes/no): ");
 
-            printEligibility(age, yearsOfExperience, hasBagrut);
-            scanner.close();
-        }
+        printEligibility(age, yearsOfExperience, hasDiploma);
+        scanner.close();
+    }
 
-        /**
-         * קורא מהמשתמש מספר שלם ובודק שהוא בטווח הרצוי.
-         *
-         * @param scanner     אובייקט Scanner לקבלת קלט
-         * @param prompt      טקסט שמוצג למשתמש
-         * @param minValue    ערך תחתון מותר
-         * @param maxValue    ערך עליון מותר
-         * @return            מספר שלם תקין בטווח
-         */
-        private static int getValidInteger(Scanner scanner, String prompt, int minValue, int maxValue) {
-            int value;
-            while (true) {
-                System.out.print(prompt);
-                // בדיקה האם הקלט הוא מספר שלם
-                if (scanner.hasNextInt()) {
-                    value = scanner.nextInt();
-                    scanner.nextLine(); // מנקה את התור (buffer) משאריות
-                    // בדיקה שהערך בטווח הרצוי
-                    if (value >= minValue && value <= maxValue) {
-                        return value;
-                    } else {
-                        System.out.println("הערך חייב להיות בין " + minValue + " ל-" + maxValue + ".");
-                    }
+    /**
+     * Reads an integer from the user and verifies that it is within the acceptable range.
+     *
+     * @param scanner   Scanner object for reading input
+     * @param prompt    Text to display to the user
+     * @param minValue  Minimum allowed value
+     * @param maxValue  Maximum allowed value
+     * @return          A valid integer within the specified range
+     */
+    private static int getValidInteger(Scanner scanner, String prompt, int minValue, int maxValue) {
+        int value;
+        while (true) {
+            System.out.print(prompt);
+            // Check if the input is an integer
+            if (scanner.hasNextInt()) {
+                value = scanner.nextInt();
+                scanner.nextLine(); // Clear the buffer
+                // Check if the value is within the valid range
+                if (value >= minValue && value <= maxValue) {
+                    return value;
                 } else {
-                    // במידה והמשתמש לא הכניס מספר שלם
-                    System.out.println("נא להזין מספר שלם בלבד.");
-                    scanner.nextLine(); // מנקה את התור (buffer)
+                    System.out.println("The value must be between " + minValue + " and " + maxValue + ".");
                 }
-            }
-        }
-
-        /**
-         * קורא מהמשתמש תשובה לשאלה של כן/לא (בעברית "כן"/"לא").
-         *
-         * @param scanner אובייקט Scanner לקבלת קלט
-         * @param prompt  טקסט שמוצג למשתמש
-         * @return        true אם המשתמש ענה "כן", אחרת false
-         */
-        private static boolean getYesNoAnswer(Scanner scanner, String prompt) {
-            while (true) {
-                System.out.print(prompt);
-                String input = scanner.nextLine().trim();
-
-                if (input.equalsIgnoreCase("כן")) {
-                    return true;
-                } else if (input.equalsIgnoreCase("לא")) {
-                    return false;
-                } else {
-                    System.out.println("נא להזין \"כן\" או \"לא\" בלבד.");
-                }
-            }
-        }
-
-        /**
-         * מדפיס הודעה מתאימה בהתאם לדרישות הקבלה:
-         *   - מעל גיל 20
-         *   - יש תעודת בגרות
-         *   - ניסיון של לפחות 3 שנים
-         *
-         * @param age               גיל המבקש
-         * @param yearsOfExperience שנות הניסיון של המבקש
-         * @param hasBagrut         האם למבקש יש תעודת בגרות
-         */
-        private static void printEligibility(int age, int yearsOfExperience, boolean hasBagrut) {
-            boolean meetsAgeReq = age > 20;
-            boolean meetsBagrutReq = hasBagrut;
-            boolean meetsExperienceReq = yearsOfExperience >= 3;
-
-            if (meetsAgeReq && meetsBagrutReq && meetsExperienceReq) {
-                // המבקש התקבל
-                System.out.println("המבקש התקבל לעבודה.");
             } else {
-                // המבקש לא התקבל - נפרט את הסיבות
-                System.out.println("המבקש לא התקבל לעבודה בגלל הסיבות הבאות:");
-                if (!meetsAgeReq) {
-                    System.out.println("- המבקש אינו מעל גיל 20.");
-                }
-                if (!meetsBagrutReq) {
-                    System.out.println("- למבקש אין תעודת בגרות.");
-                }
-                if (!meetsExperienceReq) {
-                    System.out.println("- למבקש פחות מ-3 שנות ניסיון.");
-                }
+                // If the user input is not an integer
+                System.out.println("Please enter a valid integer.");
+                scanner.nextLine(); // Clear the buffer
             }
         }
     }
+
+    /**
+     * Reads a yes/no response from the user.
+     *
+     * @param scanner Scanner object for reading input
+     * @param prompt  Text to display to the user
+     * @return        true if the user answered "yes", false otherwise
+     */
+    private static boolean getYesNoAnswer(Scanner scanner, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim();
+
+            if (input.equalsIgnoreCase("yes")) {
+                return true;
+            } else if (input.equalsIgnoreCase("no")) {
+                return false;
+            } else {
+                System.out.println("Please enter \"yes\" or \"no\" only.");
+            }
+        }
+    }
+
+    /**
+     * Prints an appropriate message based on the eligibility requirements:
+     *   - Over 20 years old
+     *   - Possesses a high school diploma
+     *   - At least 3 years of experience
+     *
+     * @param age               Applicant's age
+     * @param yearsOfExperience Applicant's years of experience
+     * @param hasDiploma        Whether the applicant has a high school diploma
+     */
+    private static void printEligibility(int age, int yearsOfExperience, boolean hasDiploma) {
+        boolean meetsAgeReq = age > 20;
+        boolean meetsDiplomaReq = hasDiploma;
+        boolean meetsExperienceReq = yearsOfExperience >= 3;
+
+        if (meetsAgeReq && meetsDiplomaReq && meetsExperienceReq) {
+            // Applicant is accepted
+            System.out.println("The applicant has been accepted for the job.");
+        } else {
+            // Applicant is not accepted - specify the reasons
+            System.out.println("The applicant was not accepted for the job due to the following reasons:");
+            if (!meetsAgeReq) {
+                System.out.println("- The applicant is not over 20 years old.");
+            }
+            if (!meetsDiplomaReq) {
+                System.out.println("- The applicant does not have a high school diploma.");
+            }
+            if (!meetsExperienceReq) {
+                System.out.println("- The applicant has less than 3 years of experience.");
+            }
+        }
+    }
+}
