@@ -8,8 +8,9 @@ public class WorkersConditions {
         int yearsOfExperience = getValidInteger(scanner, "Enter years of experience (positive integer): ", 0, 120);
         boolean hasDiploma = getYesNoAnswer(scanner, "Do you have a high school diploma? (yes/no): ");
 
-        processAndDisplayResults(age, yearsOfExperience, hasDiploma);
         scanner.close();
+
+        processAndDisplayResults(age, yearsOfExperience, hasDiploma);
     }
 
     /**
